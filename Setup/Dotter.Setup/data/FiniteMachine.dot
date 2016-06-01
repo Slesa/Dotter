@@ -1,0 +1,11 @@
+digraph finite_state_machine {
+        rankdir=LR;
+        size="8,5"
+        node [shape = circle];
+        S0 -> S1 [ label = "Lift Nozzle" ]
+        S1 -> S0 [ label = "Replace Nozzle" ]
+        S1 -> S2 [ label = "Authorize Pump" ]
+        S2 -> S0 [ label = "Replace Nozzle" ]
+        S2 -> S3 [ label = "Pull Trigger" ]
+        S3 -> S2 [ label = "Release Trigger" ]
+}

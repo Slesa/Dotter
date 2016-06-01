@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotter.App", "Dotter.App\Dotter.App.csproj", "{106B7464-B606-4F8C-83F7-716F45E595C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotter.Core", "Dotter.Core\Dotter.Core.csproj", "{921669F0-3E9C-41FB-9B00-8D0C2272CA6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotter.Specs", "Dotter.Specs\Dotter.Specs.csproj", "{9FAF5176-CB91-4B49-AD08-8E5C0ED8A706}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotter.Theme", "Dotter.Theme\Dotter.Theme.csproj", "{B8FD7969-09FE-466D-9AEB-8BB80FD0F706}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E2EA3057-8D68-43F6-BBE9-6CD24E4B5752}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotter.Grammar", "Dotter.Grammar\Dotter.Grammar.csproj", "{C1736A91-5022-4126-919E-9BC016D34BC3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{106B7464-B606-4F8C-83F7-716F45E595C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{106B7464-B606-4F8C-83F7-716F45E595C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{106B7464-B606-4F8C-83F7-716F45E595C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{106B7464-B606-4F8C-83F7-716F45E595C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{921669F0-3E9C-41FB-9B00-8D0C2272CA6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{921669F0-3E9C-41FB-9B00-8D0C2272CA6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{921669F0-3E9C-41FB-9B00-8D0C2272CA6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{921669F0-3E9C-41FB-9B00-8D0C2272CA6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FAF5176-CB91-4B49-AD08-8E5C0ED8A706}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FAF5176-CB91-4B49-AD08-8E5C0ED8A706}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FAF5176-CB91-4B49-AD08-8E5C0ED8A706}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FAF5176-CB91-4B49-AD08-8E5C0ED8A706}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8FD7969-09FE-466D-9AEB-8BB80FD0F706}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8FD7969-09FE-466D-9AEB-8BB80FD0F706}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8FD7969-09FE-466D-9AEB-8BB80FD0F706}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8FD7969-09FE-466D-9AEB-8BB80FD0F706}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1736A91-5022-4126-919E-9BC016D34BC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1736A91-5022-4126-919E-9BC016D34BC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1736A91-5022-4126-919E-9BC016D34BC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1736A91-5022-4126-919E-9BC016D34BC3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

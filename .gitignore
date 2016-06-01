@@ -1,0 +1,5 @@
+packages/
+tmp/
+paket-files/
+bin/
+.paket/paket.exe

@@ -1,0 +1,16 @@
+﻿<Application x:Class="Dotter.App.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Startup="OnApplicationStartup">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Dotter.Theme;component/Themes/Generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Rectangle x:Key="Workaround" />
+
+        </ResourceDictionary>
+
+    </Application.Resources>
+</Application>

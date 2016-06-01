@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib">
+
+    <ImageSource x:Key="Images.Dotter">Images/Dotter.png</ImageSource>
+    
+    <Image x:Key="Images.FileNew" Source="Images/FileNew.png" x:Shared="false" />
+    <Image x:Key="Images.FileOpen" Source="Images/FileOpen.png" x:Shared="false" />
+    <Image x:Key="Images.FileSave" Source="Images/FileSave.png" x:Shared="false" />
+
+    <Image x:Key="Images.Add" Source="Images/Add.png" x:Shared="false" />
+    <Image x:Key="Images.Remove" Source="Images/Remove.png" x:Shared="false" />
+    <Image x:Key="Images.Forward" Source="Images/Forward.png" x:Shared="false" />
+    <Image x:Key="Images.Backward" Source="Images/Backward.png" x:Shared="false" />
+    <Image x:Key="Images.Finish" Source="Images/Finish.png" x:Shared="false" />
+
+    <Image x:Key="Images.CopyFileName" Source="Images/CopyFileName.png" x:Shared="false" />
+    <Image x:Key="Images.CopyFileContent" Source="Images/CopyFileContent.png" x:Shared="false" />
+
+    <Image x:Key="Images.Wizard" Source="Images/Wizard.png" x:Shared="false" />
+
+    <!--<ImageSource x:Key="Images.PreviewEmpty">/Dotter.Theme;component/Resources/Images/PreviewEmpty.png</ImageSource>-->
+    <BitmapImage x:Key="Images.PreviewEmpty" UriSource="/Dotter.Theme;component/Resources/Images/PreviewEmpty.png" />
+
+    
+</ResourceDictionary>

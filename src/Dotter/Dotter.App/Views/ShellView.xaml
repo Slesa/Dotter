@@ -1,0 +1,67 @@
+﻿<Window x:Class="Dotter.App.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:core="clr-namespace:Dotter.Core;assembly=Dotter.Core"
+        xmlns:regions="http://prismlibrary.com/"
+        xmlns:viewModels="clr-namespace:Dotter.App.ViewModels"
+        Title="Dotter - the graph creator"
+        Width="1280"
+        Height="1024"
+        Style="{StaticResource Style.Window}"
+        Icon="{StaticResource Images.Dotter}"
+        mc:Ignorable="d">
+
+    <Window.DataContext>
+        <viewModels:ShellViewModel />
+    </Window.DataContext>
+
+    <DockPanel>
+
+
+        <ContentControl x:Name="Menu"
+                        DockPanel.Dock="Top"
+                        Focusable="False"
+                        TabIndex="1"
+                        regions:RegionManager.RegionName="{x:Static core:Regions.TagMenuRegion}" />
+
+
+        <Grid DockPanel.Dock="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ContentControl x:Name="Grammar"
+                        Grid.Row="0"
+                        Focusable="False"
+                        TabIndex="2"
+                        regions:RegionManager.RegionName="{x:Static core:Regions.TagGrammarRegion}" />
+
+            <ContentControl x:Name="Statusbar"
+                        Grid.Row="1"
+                        Focusable="False"
+                        regions:RegionManager.RegionName="{x:Static core:Regions.TagStatusbarRegion}" />
+        </Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+
+            <ContentControl x:Name="TextEditor"
+                            Grid.Column="0"
+                            Focusable="False"
+                        TabIndex="0"
+                        regions:RegionManager.RegionName="{x:Static core:Regions.TagEditorRegion}" />
+            <ContentControl x:Name="Preview"
+                            Grid.Column="1"
+                            Focusable="False"
+                        regions:RegionManager.RegionName="{x:Static core:Regions.TagPreviewRegion}" />
+
+        </Grid>
+    </DockPanel>
+</Window>
+

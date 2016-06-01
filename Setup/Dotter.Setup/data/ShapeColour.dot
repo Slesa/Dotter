@@ -1,0 +1,6 @@
+digraph graphname {
+                T [label="Teacher" color=Blue, fontcolor=Red, fontsize=24, shape=box]      // node T
+                P [label="Pupil" color=Blue, fontcolor=Red, fontsize=24, shape=box]  // node P
+
+                T->P [label="Instructions", fontcolor=darkgreen] // edge T->P
+}

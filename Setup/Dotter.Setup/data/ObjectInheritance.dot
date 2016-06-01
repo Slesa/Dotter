@@ -1,0 +1,24 @@
+digraph obj{
+        node[shape=record];
+        rankdir="BT";
+        
+        teacher [label = "{<f0> Teacher|<f1> \n  |<f2> \n   }"];
+        course [label = "{<f0> Course|<f1> \n  |<f2> \n   }"];
+        student [label = "{<f0> Student|<f1> \n  |<f2> \n   }"];
+        lesson [label = "{<f0> Lesson |<f1> \n  |<f2> \n   }"];
+        tutorial [label = "{<f0> Tutorial|<f1> \n  |<f2> \n   }"];
+        assessment[label = "{<f0> Assessment|<f1> \n  |<f2> \n   }"];
+        coursework [label = "{<f0> Coursework|<f1> \n  |<f2> \n   }"];
+        exam [label = "{<f0> Exam|<f1> \n  |<f2> \n   }"];
+
+        {rank=same; teacher course student}
+
+        teacher->course [dir="forward",arrowhead="none",arrowtail="normal",headlabel="1",taillabel="1.."];
+        student->course [dir="forward",arrowhead="none",arrowtail="normal",headlabel="1",taillabel="1.."];
+        lesson->course [dir="forward",arrowhead="diamond",arrowtail="normal"];
+        tutorial->course [dir="forward",arrowhead="diamond",arrowtail="normal"];
+        assessment->course [dir="forward",arrowhead="diamond",arrowtail="normal"];
+        coursework->assessment;
+        exam->assessment;
+
+}

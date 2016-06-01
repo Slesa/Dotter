@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+
+  <String Id="Language">1031</String>
+  <String Id="ProductName">Dotter</String>
+  <String Id="Description">Dotter - Let you define the graphs you'd like to see.</String>
+
+  <String Id="ErrorAdminRights">[ProductName] needs privileged user rights for installion.</String>
+  <String Id="ErrorFramework">Microsoft .NET Framework is not installed. [ProductName] requires .NET Framework 4.5!</String>
+
+  <String Id="DotterFeatureDescription">Dotter - Define graphs the easy way.</String>
+
+  <String Id="ProductFeatureTitle">Program files</String>
+  <String Id="ProductFeatureDescription">Files and components used by [ProductName]</String>
+
+
+  <String Id="ApplicationName">Dotter</String>
+  <!--<String Id="ExplorerMenuOpenXbsa">Open with XamlBoard</String>
+  <String Id="FriendlyXbsaName">XamlBoard Solution Archive</String>-->
+
+</WixLocalization>

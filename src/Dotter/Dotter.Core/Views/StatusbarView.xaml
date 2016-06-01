@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="Dotter.Core.Views.StatusbarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mvvm="http://prismlibrary.com/"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Triggers="clr-namespace:Dotter.Core.Triggers"
+             xmlns:Actions="clr-namespace:Dotter.Core.Actions"
+             xmlns:Converters="clr-namespace:Dotter.Core.Converters"
+             Height="30"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d"
+             mvvm:ViewModelLocator.AutoWireViewModel="True"
+             Focusable="False">
+
+    <UserControl.Resources>
+        <Converters:StringEmptyToTrueConverter x:Key="StringEmptyToTrueConverter" />
+    </UserControl.Resources>
+    
+    <Border x:Name="statusBorder" Style ="{StaticResource Style.StatusBar.Border}" Height="0">
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="ContentAvailGroup">
+                <VisualState x:Name="NoDataState">
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="statusBorder" From="30" To="0" Duration="0:0:1" />
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="HasDataState">
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="statusBorder" To="30" Duration="0:0:1" />
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <i:Interaction.Triggers>
+            <Triggers:DataTrigger Binding="{Binding Message, Converter={StaticResource StringEmptyToTrueConverter}}" Value="True">
+                <Actions:GoToStateAction StateName="NoDataState" TargetObject="{Binding ElementName=statusBorder}" />
+            </Triggers:DataTrigger>
+            <Triggers:DataTrigger Binding="{Binding Message, Converter={StaticResource StringEmptyToTrueConverter}}" Value="False">
+                <Actions:GoToStateAction StateName="HasDataState" TargetObject="{Binding ElementName=statusBorder}" />
+            </Triggers:DataTrigger>
+        </i:Interaction.Triggers>
+
+        <TextBox x:Name="statusText" Focusable="False"
+                 IsReadOnly="True"
+                 Style="{StaticResource Style.StatusBar.Message}"
+                 Text="{Binding Message, Mode=OneWay}" />
+    </Border>
+
+</UserControl>

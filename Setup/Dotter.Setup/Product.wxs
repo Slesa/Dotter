@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+     xmlns:vs="http://schemas.microsoft.com/wix/VSExtension">
+
+
+  <!-- Produkt-Definition -->
+  <Product Id="*"
+           Name="!(loc.ProductName)"
+           Language="1033"
+           Version="$(var.Version)"
+           Manufacturer="Centigrade GmbH"
+           UpgradeCode="3d8aade1-9956-4dfe-90a8-3d9685caa041">
+
+
+    <!-- Package-Definition -->
+    <Package InstallerVersion="301"
+             Compressed="yes"
+             Description="!(loc.Description)"
+             Comments="(c) 2012 Centigrade GmbH"
+             InstallScope="perMachine"
+             InstallPrivileges="elevated"/>
+
+
+    <!-- Requirements -->
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <PropertyRef Id="NETFRAMEWORK45" />
+    <Condition Message="!(loc.ErrorFramework)">NETFRAMEWORK45</Condition>
+    <Condition Message="!(loc.ErrorAdminRights)">Privileged</Condition>
+
+
+    <!-- Icons -->
+    <Icon Id="I__DotterIcon" SourceFile="Dotter.ico" />
+    <Property Id="ARPPRODUCTICON" Value="I__DotterIcon"/>
+
+
+    <!-- Media -->
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+
+    <!-- Directory-Struktur -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <!-- program files directories -->
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="CentigradeFolder" Name="Centigrade">
+          <Directory Id="APPLICATIONFOLDER" Name="Dotter">
+            <Directory Id="FilesFolder" Name="files" />
+          </Directory>
+        </Directory>
+      </Directory>
+      <!-- roaming program data directories -->
+      <Directory Id="AppDataFolder" Name="AppDataFolder">
+        <Directory Id="VendorRoamingFolder" Name="Centigrade">
+          <Directory Id="ProductRoamingFolder" Name="Dotter" />
+        </Directory>
+      </Directory>
+      <!-- user documents directory -->
+      <Directory Id="PersonalFolder">
+        <Directory Id="DocumentsDotterFolder" Name="Dotter">
+          <Directory Id="SamplesFolder" Name="Samples" />
+        </Directory>
+      </Directory>
+      <!-- shortcut directories -->
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ProgramMenuVendorFolder" Name="Centigrade">
+          <Directory Id="ProgramMenuProductFolder" Name="Dotter" />
+        </Directory>
+      </Directory>
+    </Directory>
+
+
+    <!-- Komponenten-Struktur -->
+    <DirectoryRef Id="APPLICATIONFOLDER">
+      <Component Id="C__Dotter" Guid="{6EF406EE-1EA5-485D-B18E-15262B7260F2}" Win64="yes">
+        <File Id="DOTTER.EXE" Name="Dotter.exe" Source="$(var.FileSource)\Dotter.App.exe" KeyPath="yes" />
+        <File Id="DOTTER.EXE.CONFIG" Name="Dotter.exe.config" Source="$(var.FileSource)\Dotter.App.exe.config" />
+
+        <!-- Capabilities keys for Vista/7 "Set Program Access and Defaults" -->
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Centigrade\Dotter\Capabilities" Name="ApplicationDescription" Value="!(loc.Description)" Type="string" />
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Centigrade\Dotter\Capabilities" Name="ApplicationIcon" Value="[APPLICATIONFOLDER]MyApp.exe,0" Type="string" />
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Centigrade\Dotter\Capabilities" Name="ApplicationName" Value="!(loc.ApplicationName)" Type="string" />
+        <!--<RegistryValue Root="HKLM" Key="SOFTWARE\Centigrade\Dotter\Capabilities\DefaultIcon" Value="[APPLICATIONFOLDER]Dotter.exe,1" Type="string" />
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Centigrade\XamlBoard\Capabilities\FileAssociations" Name=".xbsa" Value="XamlBoard.Document" Type="string" />
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Centigrade\XamlBoard\Capabilities\MIMEAssociations" Name="application/xbsa" Value="XamlBoard.Document" Type="string" />
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Centigrade\XamlBoard\Capabilities\shell\Open\command" Value="&quot;[APPLICATIONFOLDER]XamlBoard.exe&quot; &quot;%1&quot;" Type="string" />-->
+        <RegistryValue Root="HKLM" Key="SOFTWARE\RegisteredApplications" Name="Dotter" Value="SOFTWARE\Centigrade\Dotter\Capabilities" Type="string" />
+
+        <!-- App Paths to support Start,Run -> "myapp" -->
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\Dotter.exe" Value="[!MyApp.exe]" Type="string" />
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\Dotter.exe" Name="Path" Value="[APPLICATIONFOLDER]" Type="string" />
+
+        <!-- Extend to the "open with" list + Win7 jump menu pinning  -->
+        <!--<RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Applications\XamlBoard.exe\SupportedTypes" Name=".xbsa" Value="" Type="string" />
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Applications\XamlBoard.exe\shell\open" Name="FriendlyAppName" Value="!(loc.ApplicationName)" Type="string" />-->
+
+        <!-- MyApp.Document ProgID -->
+        <!--<RegistryValue Root="HKLM" Key="SOFTWARE\Classes\XamlBoard.Document" Name="FriendlyTypeName" Value="!(loc.FriendlyXbsaName)" Type="string" />
+        <ProgId Id="XamlBoard.Document" Description="!(loc.FriendlyXbsaName)" Icon="I__XamlBoardIcon" Advertise="yes">
+          <Extension Id="xbsa">
+            <Verb Id="open" Command="!(loc.ExplorerMenuOpenXbsa)" Argument="&quot;%1&quot;" />
+            <MIME Advertise="yes" ContentType="application/zip" Default="yes" />
+          </Extension>
+        </ProgId>-->
+
+        <!-- Optional: add an 'Edit with XYZ' to 'right click' even when not associated -->
+        <!--<RegistryValue Root="HKLM" Key="SOFTWARE\Classes\SystemFileAssociations\.xbsa\shell\edit.XamlBoard.exe" Value="!(loc.ExplorerMenuOpenXbsa)" Type="string" />
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\SystemFileAssociations\.xbsa\shell\edit.XamlBoard.exe\command" Value="&quot;[APPLICATIONFOLDER]XamlBoard.exe&quot; &quot;%1&quot;" Type="string" />-->
+
+      </Component>
+
+      <Component Id="C__Antlr4Runtime" Guid="{6CF92C66-D8E6-4BF7-AA80-5E3D9A5EC405}" Win64="yes">
+        <File Id="Antlr4.Runtime.net45.dll" Source="$(var.FileSource)\Antlr4.Runtime.dll" />
+      </Component>
+      <Component Id="C__DotterCore" Guid="{F1D54025-3807-496A-9A40-DF44F292B2C8}" Win64="yes">
+        <File Id="Dotter.Core.dll" Source="$(var.FileSource)\Dotter.Core.dll" />
+      </Component>
+      <Component Id="C__DotterGrammar" Guid="{D8FD5D7C-E5D2-46C5-9816-209E368168AB}" Win64="yes">
+        <File Id="Dotter.Grammar.dll" Source="$(var.FileSource)\Dotter.Grammar.dll" />
+      </Component>
+      <Component Id="C__DotterTheme" Guid="{47CBF972-01B9-41DE-ACB9-53AE1376BEED}" Win64="yes">
+        <File Id="Dotter.Theme.dll" Source="$(var.FileSource)\Dotter.Theme.dll" />
+      </Component>
+      <Component Id="C__ServiceLocator" Guid="{D95D9807-5A35-4220-98FA-8FA9B79ABAB0}" Win64="yes">
+        <File Id="Microsoft.Practices.ServiceLocation.dll" Source="$(var.FileSource)\Microsoft.Practices.ServiceLocation.dll" />
+      </Component>
+      <Component Id="C__Unity" Guid="{C6A8D275-167B-4AE1-AE50-31D3132B1A07}" Win64="yes">
+        <File Id="Microsoft.Practices.Unity.dll" Source="$(var.FileSource)\Microsoft.Practices.Unity.dll" />
+      </Component>
+      <Component Id="C__UnityConfig" Guid="{03704B35-1CF3-406B-B21A-C9E4BC18FA51}" Win64="yes">
+        <File Id="Microsoft.Practices.Unity.Configuration.dll" Source="$(var.FileSource)\Microsoft.Practices.Unity.Configuration.dll" />
+      </Component>
+      <Component Id="C__UnityRegister" Guid="{A4218EDA-367E-4814-BCD7-2B0D04E0D77C}" Win64="yes">
+        <File Id="Microsoft.Practices.Unity.RegistrationByConvention.dll" Source="$(var.FileSource)\Microsoft.Practices.Unity.RegistrationByConvention.dll" />
+      </Component>
+      <Component Id="C__Prism" Guid="{CE108686-043B-4EF1-9AF0-37D7409DF96E}" Win64="yes">
+        <File Id="Prism.dll" Source="$(var.FileSource)\Prism.dll" />
+      </Component>
+      <Component Id="C__PrismUnity" Guid="{7F77EA82-5CCB-4C90-BC4D-7CC45CD8631C}" Win64="yes">
+        <File Id="Prism.Unity.Wpf.dll" Source="$(var.FileSource)\Prism.Unity.Wpf.dll" />
+      </Component>
+      <Component Id="C__PrismWpf" Guid="{F210A249-19DD-42E7-B2C0-F940E176BFDB}" Win64="yes">
+        <File Id="Prism.Wpf.dll" Source="$(var.FileSource)\Prism.Wpf.dll" />
+      </Component>
+      <Component Id="C__Interactivity" Guid="{BEA57074-9136-4655-8D91-9F09AB3CB7B1}" Win64="yes">
+        <File Id="System.Windows.Interactivity.dll" Source="$(var.FileSource)\System.Windows.Interactivity.dll" />
+      </Component>
+
+
+    </DirectoryRef>
+
+    <DirectoryRef Id="FilesFolder">
+      <Component Id="C__DotExe" Guid="{41F3BC12-E741-4261-BDB9-809DC76A97CD}" Win64="yes">
+        <File Id="DOT.EXE" Source="$(var.FileSource)\files\dot.exe" KeyPath="yes" />
+        <File Source="$(var.FileSource)\files\ann.dll" />
+        <File Source="$(var.FileSource)\files\cdt.dll" />
+        <File Source="$(var.FileSource)\files\cgraph.dll" />
+        <File Source="$(var.FileSource)\files\config6" />
+        <File Source="$(var.FileSource)\files\fontconfig.dll" />
+        <File Source="$(var.FileSource)\files\fontconfig_fix.dll" />
+        <File Source="$(var.FileSource)\files\freetype6.dll" />
+        <File Source="$(var.FileSource)\files\glut32.dll" />
+        <File Source="$(var.FileSource)\files\gvc.dll" />
+        <File Source="$(var.FileSource)\files\gvplugin_core.dll" />
+        <File Source="$(var.FileSource)\files\gvplugin_dot_layout.dll" />
+        <File Source="$(var.FileSource)\files\gvplugin_gd.dll" />
+        <File Source="$(var.FileSource)\files\gvplugin_gdiplus.dll" />
+        <File Source="$(var.FileSource)\files\gvplugin_neato_layout.dll" />
+        <File Source="$(var.FileSource)\files\gvplugin_pango.dll" />
+        <File Source="$(var.FileSource)\files\iconv.dll" />
+        <File Source="$(var.FileSource)\files\intl.dll" />
+        <File Source="$(var.FileSource)\files\jpeg62.dll" />
+        <File Source="$(var.FileSource)\files\libatk-1.0-0.dll" />
+        <File Source="$(var.FileSource)\files\libcairo-2.dll" />
+        <File Source="$(var.FileSource)\files\libexpat.dll" />
+        <File Source="$(var.FileSource)\files\libexpat-1.dll" />
+        <File Source="$(var.FileSource)\files\libfontconfig-1.dll" />
+        <File Source="$(var.FileSource)\files\libfreetype-6.dll" />
+        <File Source="$(var.FileSource)\files\libgdk_pixbuf-2.0-0.dll" />
+        <File Source="$(var.FileSource)\files\libgdkglext-win32-1.0-0.dll" />
+        <File Source="$(var.FileSource)\files\libgdk-win32-2.0-0.dll" />
+        <File Source="$(var.FileSource)\files\libgio-2.0-0.dll" />
+        <File Source="$(var.FileSource)\files\libglade-2.0-0.dll" />
+        <File Source="$(var.FileSource)\files\libglib-2.0-0.dll" />
+        <File Source="$(var.FileSource)\files\libgmodule-2.0-0.dll" />
+        <File Source="$(var.FileSource)\files\libgobject-2.0-0.dll" />
+        <File Source="$(var.FileSource)\files\libgthread-2.0-0.dll" />
+        <File Source="$(var.FileSource)\files\libgtkglext-win32-1.0-0.dll" />
+        <File Source="$(var.FileSource)\files\libgtk-win32-2.0-0.dll" />
+        <File Source="$(var.FileSource)\files\libltdl-3.dll" />
+        <File Source="$(var.FileSource)\files\libpango-1.0-0.dll" />
+        <File Source="$(var.FileSource)\files\libpangocairo-1.0-0.dll" />
+        <File Source="$(var.FileSource)\files\libpangoft2-1.0-0.dll" />
+        <File Source="$(var.FileSource)\files\libpangowin32-1.0-0.dll" />
+        <File Source="$(var.FileSource)\files\libpng12.dll" />
+        <File Source="$(var.FileSource)\files\libpng14-14.dll" />
+        <File Source="$(var.FileSource)\files\librsvg-2-2.dll" />
+        <File Source="$(var.FileSource)\files\libxml2.dll" />
+        <File Source="$(var.FileSource)\files\ltdl.dll" />
+        <File Source="$(var.FileSource)\files\Pathplan.dll" />
+        <File Source="$(var.FileSource)\files\vmalloc.dll" />
+        <File Source="$(var.FileSource)\files\zlib1.dll" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="ProgramMenuFolder">
+      <Component Id="S__ProgramMenuComponent" Guid="7E105196-337E-41A0-B3C3-7881D0311794" Win64="yes">
+
+        <!-- create folders -->
+        <CreateFolder Directory="ProgramMenuVendorFolder" />
+        <CreateFolder Directory="ProgramMenuProductFolder" />
+
+        <!-- remove folder -->
+        <RemoveFolder Id="RemoveProgramMenuVendorFolder" Directory="ProgramMenuVendorFolder" On="uninstall" />
+        <RemoveFolder Id="RemoveProgramMenuProductFolder" Directory="ProgramMenuProductFolder" On="uninstall" />
+        <RemoveFolder Id="RemoveProductRoamingFolder" Directory="ProductRoamingFolder" On="uninstall" />
+        <RemoveFolder Id="RemoveVendorRoamingFolder" Directory="VendorRoamingFolder" On="uninstall" />
+
+        <!-- main shortcut -->
+        <Shortcut Id="DotterShortcut"
+                  Directory="ProgramMenuProductFolder"
+                  WorkingDirectory="APPLICATIONFOLDER"
+                  Name="Dotter"
+                  Icon="I__DotterIcon"
+                  Description="!(loc.DotterFeatureDescription)"
+                  Target="[APPLICATIONFOLDER]DOTTER.EXE"/>
+
+        <!-- registry keys -->
+        <RegistryValue Root="HKCU" Key="Software\Centigrade\Dotter" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="SamplesFolder">
+      <Component Id="C__SamplesFolder" Guid="{30D05DFA-2E7D-4278-B673-169CA58B341B}">
+        <!-- create folders -->
+        <CreateFolder Directory="DocumentsDotterFolder" />
+        <CreateFolder Directory="SamplesFolder" />
+        <!-- remove folders -->
+        <RemoveFolder Id="RemoveDocumentsDotterFolder" Directory="DocumentsDotterFolder" On="uninstall" />
+        <RemoveFolder Id="RemoveSamplesFolder" Directory="SamplesFolder" On="uninstall" />
+        <RemoveFile Id="PurgeSamplesFolder" Name="*.*" On="uninstall" />
+
+        <RegistryValue Root="HKCU" Key="Software\Centigrade\Dotter" Name="documents" Type="integer" Value="1" KeyPath="yes" />
+
+        <File Source="data\EntityRelationship.dot" />
+        <File Source="data\ObjectInheritance.dot" />
+        <File Source="data\DataFlow2.dot" />
+        <File Source="data\DataFlow.dot" />
+        <File Source="data\FiniteMachine.dot" />
+        <File Source="data\Records.dot" />
+        <File Source="data\SavingTime.dot" />
+        <File Source="data\ShapeColour.dot" />
+        <File Source="data\Labels.dot" />
+        <File Source="data\Digraph.dot" />
+
+      </Component>
+    </DirectoryRef>
+
+
+
+
+    <!-- Feature-Struktur -->
+    <Feature Id="SharedFiles" Level="1"
+             InstallDefault="local"
+             Absent="disallow"
+             AllowAdvertise="no"
+             TypicalDefault="install"
+             Title="!(loc.ProductFeatureTitle)"
+             ConfigurableDirectory="APPLICATIONFOLDER"
+             Description="!(loc.ProductFeatureDescription)">
+      <ComponentRef Id="C__Dotter" />
+      <ComponentRef Id="C__SamplesFolder" />
+      <ComponentRef Id="S__ProgramMenuComponent" />
+      
+      <ComponentRef Id="C__Antlr4Runtime" />
+      <ComponentRef Id="C__DotterCore" />
+      <ComponentRef Id="C__DotterGrammar" />
+      <ComponentRef Id="C__DotterTheme" />
+      <ComponentRef Id="C__ServiceLocator" />
+      <ComponentRef Id="C__Unity" />
+      <ComponentRef Id="C__UnityConfig" />
+      <ComponentRef Id="C__UnityRegister" />
+      <ComponentRef Id="C__Prism" />
+      <ComponentRef Id="C__PrismUnity" />
+      <ComponentRef Id="C__PrismWpf" />
+      <ComponentRef Id="C__Interactivity" />
+      <ComponentRef Id="C__DotExe" />
+    </Feature>
+
+
+    <Property Id="WIXUI_INSTALLDIR" Value="APPLICATIONFOLDER" />
+
+    <UIRef Id="WixUI_ErrorProgressText" />
+    <UIRef Id="WixUI_Centigrade" />
+
+    <!--<WixVariable Id="WixUILicenseRtf" Value="License.rtf" />-->
+    <!--<WixVariable Id="WixUIBannerBmp" Value="..\XamlBoard.Setup.lib\Resources\XamlBoardBanner.jpg" />-->
+    <!--<WixVariable Id="WixUIDialogBmp" Value="..\XamlBoard.Setup.lib\Resources\XamlBoardInstaller-BG.jpg" />-->
+
+  </Product>
+</Wix>

@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="Color.Foreground">White</Color>
+    
+    <!--<Color x:Key="Color.Background">#FF445566</Color>-->
+    <!--<Color x:Key="Color.Warning">#FFFF8000</Color>-->
+    <Color x:Key="Color.Error">#FFFF0000</Color>
+
+    <Color x:Key="Color.Primary">#0038e5</Color>
+    <Color x:Key="Color.Primary.1">#0032CB</Color>
+    <Color x:Key="Color.Primary.2">#0028A5</Color>
+
+    <Color x:Key="Color.Highlight">#E8760C</Color>
+    <Color x:Key="Color.Highlight.1">#CE690B</Color>
+    <Color x:Key="Color.Highlight.2">#A85609</Color>
+
+    <Color x:Key="Color.Selection">#9A0CE8</Color>
+    <Color x:Key="Color.Alternative">#FFD90D</Color>
+
+    
+</ResourceDictionary>

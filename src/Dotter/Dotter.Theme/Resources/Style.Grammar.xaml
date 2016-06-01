@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Style x:Key="Style.Grammar.Border" TargetType="{x:Type Border}">
+    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    <Setter Property="Margin" Value="8,2,8,2" />
+  </Style>
+
+
+</ResourceDictionary>

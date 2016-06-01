@@ -1,0 +1,9 @@
+digraph ER{
+        node[shape=box];
+        Book;
+        Customer;
+        Loan;
+        {rank=same;Book,Customer,Loan}
+        Book->Loan[dir="forward",arrowhead="crow",arrowtail="normal"];
+        Customer->Loan[dir="forward",arrowhead="crow",arrowtail="normal"];
+}

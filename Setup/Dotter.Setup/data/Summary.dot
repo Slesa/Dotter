@@ -1,0 +1,11 @@
+digraph summary{
+                start [label="Start with a Node"]
+                next [label="Choose your shape", shape=box]
+                warning [label="Don't go overboard", color=Blue, fontcolor=Red,fontsize=24,style=filled, fillcolor=green,shape=octagon]
+                end [label="Draw your graph!", shape=box, style=filled, fillcolor=yellow]
+
+                start->next
+                start->warning 
+                next->end [label="Getting Better...", fontcolor=darkblue]
+
+}
