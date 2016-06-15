@@ -59,11 +59,15 @@ namespace Dotter.Specs.ViewModels
     [Subject(typeof (TextEditorViewModel), "Loading")]
     public class When_texteditor_loads_file : Spec<TextEditorViewModel>
     {
+        [AssemblySetup]
+        static AssemblySetup assembly_setup;
+
         When_texteditor_loads_file()
         {
-            Specify(x => x.OnLoadFile (@"data\SimpleGraph"))
+            Specify(x => x.OnLoadFile (@"data\SimpleGraph.dot"))
                 .DefaultCase(_ => _
                 .It("should publish statusbar event", _1 => _statusbarMessageEvent.Verify(x => x.Publish(It.IsAny<string>())))
+                .It("should publish textinputupdate event", _2 => _textInputUpdateEvent.Verify(x => x.Publish(It.IsAny<string>())))
                 .It("should publish fileloaded event", _2 => _fileLoadedEvent.Verify(x => x.Publish(It.IsAny<string>()))));
         }
 
@@ -76,10 +80,12 @@ namespace Dotter.Specs.ViewModels
             //var _saveFileEvent = new Mock<SaveFileEvent>();
             _fileLoadedEvent = new Mock<FileLoadedEvent> ();
             _statusbarMessageEvent = new Mock<StatusbarMessageEvent> ();
+            _textInputUpdateEvent = new Mock<TextInputUpdatedEvent> ();
             //_ea.Setup(x => x.GetEvent<ClearTextInputEvent>()).Returns(_clearTextInputEvent.Object);
             //_ea.Setup(x => x.GetEvent<FillTextInputEvent>()).Returns(_fillTextInputEvent.Object);
             //_ea.Setup(x => x.GetEvent<LoadFileEvent>()).Returns(_loadFileEvent.Object);
             //_ea.Setup(x => x.GetEvent<SaveFileEvent>()).Returns(_saveFileEvent.Object);
+            _ea.Setup (x => x.GetEvent<TextInputUpdatedEvent> ()).Returns (_textInputUpdateEvent.Object);
             _ea.Setup(x => x.GetEvent<StatusbarMessageEvent>()).Returns(_statusbarMessageEvent.Object);
             _ea.Setup(x => x.GetEvent<FileLoadedEvent>()).Returns(_fileLoadedEvent.Object);
 
@@ -95,6 +101,7 @@ namespace Dotter.Specs.ViewModels
         //Mock<SaveFileEvent> _saveFileEvent;
         Mock<StatusbarMessageEvent> _statusbarMessageEvent;
         Mock<FileLoadedEvent> _fileLoadedEvent;
+        Mock<TextInputUpdatedEvent> _textInputUpdateEvent;
     }
 
     /*
