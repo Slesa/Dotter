@@ -1,4 +1,6 @@
 packages/
+.fake/
+.paket/paket.exe
 tmp/
 paket-files/
 bin/

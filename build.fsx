@@ -10,11 +10,6 @@ open Fake.ReleaseNotesHelper
 open Fake.SonarQubeHelper
 open System
 open System.IO
-#if MONO
-#else
-#load "packages/SourceLink.Fake/Tools/Fake.fsx"
-open SourceLink
-#endif
 
 // --------------------------------------------------------------------------------------
 // Variables
@@ -176,11 +171,13 @@ Target "RunTests" (fun _ ->
 )
 
 // --------------------------------------------------------------------------------------
+let sonarTool = findToolInSubPath "MSBuild.SonarQube.Runner.exe" @".\tools"
+
 Target "BeginSonarQube" (fun _ ->
 
   SonarQube Begin (fun p ->
     {p with
-      //ToolsPath = sonarTool
+      ToolsPath = sonarTool
       Key = project
       Name = "Dotter"
       Version = currentVersion})
@@ -191,7 +188,7 @@ Target "EndSonarQube" (fun _ ->
 
   SonarQube End (fun p ->
     {p with
-      //ToolsPath = sonarTool
+      ToolsPath = sonarTool
       Key = project
       Name = "Dotter"
       Version = currentVersion})
@@ -215,7 +212,7 @@ Target "Deploy" (fun _ ->
 // --------------------------------------------------------------------------------------
 // Run all targets by default. Invoke 'build <Target>' to override
 
-Target "All" DoNothing
+Target "Default" DoNothing
 
 "Clean"
   =?> ("SetAssemblyInfo",not isLocalBuild)
@@ -225,6 +222,6 @@ Target "All" DoNothing
 //  ==> "RunTests"
   ==> "Deploy"
 //  =?> ("GenerateReferenceDocs",isLocalBuild && not isMono)
-  ==> "All"
+  ==> "Default"
 
-RunTargetOrDefault "All"
+RunTargetOrDefault "Default"

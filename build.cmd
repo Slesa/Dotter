@@ -1,4 +1,8 @@
 @echo off
+
+SETLOCAL
+SET FAKE_PATH=packages\FAKE\tools\Fake.exe
+
 cls
 
 .paket\paket.bootstrapper.exe
@@ -17,7 +21,12 @@ IF NOT EXIST build.fsx (
 )
 
 :Build
-packages\FAKE\tools\FAKE.exe build.fsx %*
+
+IF [%1]==[] (
+    %FAKE_PATH% "build.fsx" "Default"
+) ELSE (
+    %FAKE_PATH% "build.fsx" %*
+)
 
 rem Bail if we're running a TeamCity build.
 if defined TEAMCITY_PROJECT_NAME goto Quit

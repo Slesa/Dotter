@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
   This file defines properties which would be understood by the SonarQube Scanner for MSBuild, if not overridden (see below)
-  By default the MSBuild.SonarQube.Runner.exe picks-up a file named SonarQube.Analysis.xml in the folder it
+  By default the MSBuild.SonarQube.Scanner.exe picks-up a file named SonarQube.Analysis.xml in the folder it
   is located (if it exists). It is possible to use another properties file by using the /s:filePath.xml flag
   
   The overriding strategy of property values is the following:
@@ -18,15 +18,16 @@
 -->
 <SonarQubeAnalysisProperties  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/integration/2015/1">
 
-  <Property Name="sonar.host.url">http://centilab:9000</Property>
+  <Property Name="sonar.host.url">http://dev-win7-std71.abatgroup.de:9000</Property>
   
-  <Property Name="sonar.login">runner</Property>
-  <Property Name="sonar.password">runner</Property>
+  <!--
+  <Property Name="sonar.login"></Property>
+  <Property Name="sonar.password"></Property>
+  -->
 
-  <Property Name="sonar.jdbc.url">jdbc:h2:tcp://centigit/sonar</Property>
   <!-- Required only for versions of SonarQube prior to 5.2 -->
   <!--
-  <Property Name="sonar.jdbc.url">jdbc:jtds:sqlserver://geocentric;database=Sonar;instance=SQLEXPRESS14;SelectMethod=Cursor</Property>
+  <Property Name="sonar.jdbc.url">jdbc:jtds:sqlserver://mySqlServer/sonar;instance=SQLEXPRESS;SelectMethod=Cursor</Property>
   <Property Name="sonar.jdbc.username">sonar</Property>
   <Property Name="sonar.jdbc.password">sonar</Property>
   -->
