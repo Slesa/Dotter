@@ -12,6 +12,20 @@ namespace Dotter.Core.Model
         public List<GraphEdge> Edges { get; set; }
         public List<GraphNode> Nodes { get; set; }
 
+        private string FlowModelToString(FlowModel flowModel)
+        {
+            switch (flowModel)
+            {
+                case FlowModel.RightToLeft:
+                    return "RL";
+                case FlowModel.LeftToRight:
+                    return "LR";
+                case FlowModel.BottomToTop:
+                    return "BT";
+            }
+            return string.Empty;
+        }
+
         public override string ToString()
         {
             var sb = new StringBuilder();
@@ -20,6 +34,11 @@ namespace Dotter.Core.Model
             if (Type == GraphType.Graph) sb.Append("graph ");
             sb.Append(Name).AppendLine("{");
 
+            var fm = FlowModelToString(FlowModel);
+            if (!string.IsNullOrEmpty(fm))
+            {
+                sb.Append("rankdir=").AppendLine(fm);
+            }
             
             foreach (var node in Nodes)
             {
