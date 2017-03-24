@@ -6,6 +6,7 @@
         xmlns:core="clr-namespace:Dotter.Core;assembly=Dotter.Core"
         xmlns:regions="http://prismlibrary.com/"
         xmlns:viewModels="clr-namespace:Dotter.App.ViewModels"
+        xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
         Title="Dotter - the graph creator"
         Width="1280"
         Height="1024"
@@ -17,6 +18,7 @@
         <viewModels:ShellViewModel />
     </Window.DataContext>
 
+   
     <DockPanel>
 
 
@@ -51,6 +53,8 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
+            <!--http://stackoverflow.com/questions/23406451/sample-code-to-show-how-to-use-avalondock-in-an-mvvm-application-->
+            <xcad:DockingManager x:Name="dockManager" />
 
             <ContentControl x:Name="TextEditor"
                             Grid.Column="0"
