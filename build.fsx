@@ -216,9 +216,9 @@ Target "Default" DoNothing
 
 "Clean"
   =?> ("SetAssemblyInfo",not isLocalBuild)
-  ==> "BeginSonarQube"
+  =?> ("BeginSonarQube", not isLocalBuild)
   ==> "Build" <=> "BuildTests"
-  ==> "EndSonarQube"
+  =?> ("EndSonarQube", not isLocalBuild)
 //  ==> "RunTests"
   ==> "Deploy"
 //  =?> ("GenerateReferenceDocs",isLocalBuild && not isMono)
