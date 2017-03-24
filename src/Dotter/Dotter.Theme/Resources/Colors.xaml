@@ -7,7 +7,7 @@
     <!--<Color x:Key="Color.Warning">#FFFF8000</Color>-->
     <Color x:Key="Color.Error">#FFFF0000</Color>
 
-    <Color x:Key="Color.Primary">#0038e5</Color>
+    <Color x:Key="Color.Primary">#90C3D4</Color>
     <Color x:Key="Color.Primary.1">#0032CB</Color>
     <Color x:Key="Color.Primary.2">#0028A5</Color>
 
