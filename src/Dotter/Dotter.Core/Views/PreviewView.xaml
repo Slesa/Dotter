@@ -22,7 +22,7 @@
 
     <Image x:Name="previewImage"
                    Source="{Binding PreviewImage, TargetNullValue={StaticResource Images.PreviewEmpty}, FallbackValue={StaticResource Images.PreviewEmpty}}"
-                   Stretch="Uniform">
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
     </Image>
 
 </UserControl>
