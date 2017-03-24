@@ -1,6 +1,7 @@
 packages/
 .fake/
 .paket/paket.exe
+.sonarqube
 tmp/
 paket-files/
 bin/
