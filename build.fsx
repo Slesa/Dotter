@@ -139,7 +139,16 @@ Target "Clean" (fun _ ->
 
 Target "Build" (fun _ ->
 
-  let appReferences = !! @"src\Dotter\Dotter.sln"
+  let appPath = @"src\Dotter\"
+  let appReferences = !! (appPath @@ "Dotter.sln")
+
+  appReferences
+  |> Seq.iter (fun fn ->
+    fn |> RestoreMSSolutionPackages (fun p ->
+      { p with
+          OutputPath = appPath @@ "packages"
+          Retries = 4 })
+    )
 
   MSBuildRelease buildDir "Build" appReferences
     |> Log "AppBuild-Output: "
