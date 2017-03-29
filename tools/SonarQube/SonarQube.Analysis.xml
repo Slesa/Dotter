@@ -20,6 +20,7 @@
 
   <Property Name="sonar.host.url">https://sonarqube.com</Property>
   <Property Name="sonar.login">6be80d8666b1f6cb5836ebb0e5e2cea1d4eb47e3</Property>
+  <Property Name="sonar.organization">slesa-github</Property>
   
   <!--
   
