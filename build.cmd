@@ -29,6 +29,7 @@ IF [%1]==[] (
 )
 
 rem Bail if we're running a TeamCity build.
+if defined TF_BUILD goto Quit
 if defined TEAMCITY_PROJECT_NAME goto Quit
 if defined APPVEYOR goto Quit
 
