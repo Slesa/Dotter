@@ -55,6 +55,8 @@ let gitRaw = environVarOrDefault "gitRaw" "https://raw.github.com/Slesa"
 // Directories
 // --------------------------------------------------------------------------------------
 
+let srcDir = @".\src\"
+
 // The subfolder for all files to create via build
 let binDir = @".\bin\"
 
@@ -88,7 +90,7 @@ let release = LoadReleaseNotes "RELEASE_NOTES.md"
 
 let genFSAssemblyInfo (projectPath) =
     let projectName = System.IO.Path.GetFileNameWithoutExtension(projectPath)
-    let basePath = "src/" + projectName
+    let basePath = srcDir + projectName
     let fileName = basePath + "/AssemblyInfo.fs"
     CreateFSharpAssemblyInfo fileName
       [ Attribute.Title (projectName)
@@ -99,7 +101,7 @@ let genFSAssemblyInfo (projectPath) =
 
 let genCSAssemblyInfo (projectPath) =
     let projectName = System.IO.Path.GetFileNameWithoutExtension(projectPath)
-    let basePath = "src/" + projectName + "/Properties"
+    let basePath = srcDir + projectName + "/Properties"
     let fileName = basePath + "/AssemblyInfo.cs"
     CreateCSharpAssemblyInfo fileName
       [ Attribute.Title (projectName)
@@ -110,8 +112,8 @@ let genCSAssemblyInfo (projectPath) =
 
 // Generate assembly info files with the right version & up-to-date information
 Target "AssemblyInfo" (fun _ ->
-  let fsProjs =  !! "src/**/*.fsproj"
-  let csProjs = !! "src/**/*.csproj"
+  let fsProjs =  !! (srcDir + "**/*.fsproj")
+  let csProjs = !! (srcDir + "**/*.csproj")
   fsProjs |> Seq.iter genFSAssemblyInfo
   csProjs |> Seq.iter genCSAssemblyInfo
 )
@@ -136,11 +138,19 @@ Target "Clean" (fun _ ->
 
 // --------------------------------------------------------------------------------------
 // Build library & test project
+let appReferences = !! (srcDir + @"Dotter\Dotter.sln")
+
+Target "RestorePackages" (fun _ ->
+  appReferences
+  |> Seq.iter (fun fn -> 
+      fn |> RestoreMSSolutionPackages (fun p ->
+          { p with
+              OutputPath = srcDir + "packages"
+              Retries = 4 })
+      )
+) 
 
 Target "Build" (fun _ ->
-
-  let appReferences = !! @"src\Dotter\Dotter.sln"
-
   MSBuildRelease buildDir "Build" appReferences
     |> Log "AppBuild-Output: "
 )
@@ -151,7 +161,7 @@ Target "Build" (fun _ ->
 
 Target "BuildTests" (fun _ ->
 
-  let testReferences = !! @"src\Dotter\**\*.Specs.*sproj"
+  let testReferences = !! (srcDir + @"Dotter\**\*.Specs.*sproj")
 
   MSBuildDebug testDir "Build" testReferences
    |> Log "TestBuildOutput: "
@@ -160,7 +170,7 @@ Target "BuildTests" (fun _ ->
 
 Target "RunTests" (fun _ ->
 
-  let mspecTool = findToolInSubPath "mspec-x86-clr4.exe" @".\src\Dotter\packages"
+  let mspecTool = findToolInSubPath "mspec-x86-clr4.exe" srcDir + @"\packages"
   trace mspecTool
 
   !! (testDir @@ "*.Specs.dll")
@@ -216,6 +226,7 @@ Target "Default" DoNothing
 
 "Clean"
   =?> ("SetAssemblyInfo",not isLocalBuild)
+  ==> "RestorePackages"
   =?> ("BeginSonarQube", not isLocalBuild)
   ==> "Build" <=> "BuildTests"
   =?> ("EndSonarQube", not isLocalBuild)
