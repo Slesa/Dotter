@@ -170,13 +170,13 @@ Target "BuildTests" (fun _ ->
 
 Target "RunTests" (fun _ ->
 
-  let mspecTool = findToolInSubPath "mspec-x86-clr4.exe" srcDir + @"\packages"
-  trace mspecTool
+  let runTool = findToolInSubPath "TextFx.exe" srcDir + @"\packages"
+  trace runTool
 
   !! (testDir @@ "*.Specs.dll")
     |> MSpec (fun p ->
       {p with
-        ToolPath = mspecTool
+        ToolPath = runTool
         HtmlOutputDir = reportDir})
 )
 
